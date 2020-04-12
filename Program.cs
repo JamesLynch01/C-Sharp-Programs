@@ -1,38 +1,126 @@
 ﻿using System;
 
-namespace RockPaperScissorGame
+namespace Cohort1_2020
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-            int computerHand = random.Next(0, 3);
-
-            Console.WriteLine("Type rock, paper or scissors");
-            string answer = Console.ReadLine();
-            //string answer = "rock";
-            int convertAnswer = 0;
-            if (answer.ToLower() == "rock") { convertAnswer = 0; }
-            else if (answer.ToLower() == "paper") { convertAnswer = 1; }
-            else if (answer.ToLower() == "scissors") { convertAnswer = 2; }
-
-            string[] hands = {"rock", "paper", "scissors"};
-            Console.WriteLine("Computer choose: " + hands[computerHand]);
-            Console.WriteLine("Player choose: " + hands[convertAnswer]);
-
-            if (hands[computerHand] == "rock" && answer.ToLower() == "rock") { Console.WriteLine("draw"); }
-            else if (hands[computerHand] == "rock" && answer.ToLower() == "scissors") { Console.WriteLine("computer wins"); }
-            else if (hands[computerHand] == "rock" && answer.ToLower() == "paper") { Console.WriteLine("player wins"); }
-            else if (hands[computerHand] == "paper" && answer.ToLower() == "rock") { Console.WriteLine("computer wins"); }
-            else if (hands[computerHand] == "paper" && answer.ToLower() == "scissors") { Console.WriteLine("player wins"); }
-            else if (hands[computerHand] == "paper" && answer.ToLower() == "paper") { Console.WriteLine("draw"); }
-            else if (hands[computerHand] == "scissors" && answer.ToLower() == "rock") { Console.WriteLine("player wins"); }
-            else if (hands[computerHand] == "scissors" && answer.ToLower() == "scissors") { Console.WriteLine("draw"); }
-            else if (hands[computerHand] == "scissors" && answer.ToLower() == "paper") { Console.WriteLine("computer wins"); }
-             
+            Hello();
+            Addition();
+            Catdog();
+            Oddevent();
+            Inches();
+            Echo();
+            Killgrams();
+            Date();
+            Age();
+            Guess();
         }
 
-        //static String CompareHands(String hand1, String hand2);
+        public static void Hello()
+        {
+            Console.WriteLine("What is your name?");
+            string answer = Console.ReadLine();
+            Console.WriteLine("Goodbye" + " " + answer + "!");
+        }
+
+        public static void Addition()
+        {
+            Console.WriteLine("Enter your first number: ");
+            int FirstNumber = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Enter your second number: ");
+            int SecondNumber = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine(FirstNumber + SecondNumber);
+            
+        }
+
+        public static void Catdog()
+        {
+            Console.WriteLine("cat or dog?");
+            string answer = Console.ReadLine();
+            if (answer == "cat")
+            {
+                Console.WriteLine("Meow!");
+            } 
+            else 
+            { 
+                Console.WriteLine("Bark!"); 
+            }
+           
+
+        }
+
+        public static void Oddevent()
+        {
+            int i;
+            Console.WriteLine("Enter your number: ");
+            i = int.Parse(Console.ReadLine());
+            if (i % 2 == 0)
+            {
+                Console.Write("The number is even.");
+            }
+            else 
+            {
+                Console.Write("The number is odd.");
+            }
+            
+
+        }
+
+        public static void Inches()
+        {
+            Console.WriteLine("Please input your height in feet");
+            string str_feed = Console.ReadLine();
+
+            int feet = Int32.Parse(str_feed);
+            Console.WriteLine(feet * 12 + " inches");
+        }
+
+        public static void Echo()
+        {
+            Console.WriteLine("Please input a word.");
+            string Answer = Console.ReadLine();
+            Console.WriteLine(Answer.ToUpper());
+            Console.WriteLine(Answer.ToLower());
+            Console.WriteLine(Answer.ToLower());
+            
+        }
+
+        public static void Killgrams()
+        {
+            Console.WriteLine("Input your weight in pounds");
+            int Pounds = Int32.Parse(Console.ReadLine());
+            Console.WriteLine(Pounds / 2 + " kilograms");
+        }
+
+        // This should tell the time
+        public static void Date()
+        {
+            Console.WriteLine(DateTime.Now);
+        }
+
+        public static void Age()
+        {
+            Console.WriteLine("Input your birth year: ");
+            int BirthYear = Int32.Parse(Console.ReadLine());
+            Console.WriteLine(DateTime.Now.Year - BirthYear + " years old");
+        }
+
+        public static void Guess()
+        {
+            Console.WriteLine("Guess");
+            if (Console.ReadLine() == "chsarp")
+            {
+                Console.WriteLine("CORRECT!");
+            }
+            else
+            {
+                Console.WriteLine("WRONG!");
+            }
+        }
     }
+
+        
 }
