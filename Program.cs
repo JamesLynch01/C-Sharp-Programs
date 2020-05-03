@@ -1,126 +1,112 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Cohort1_2020
+namespace CarLot
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Hello();
-            Addition();
-            Catdog();
-            Oddevent();
-            Inches();
-            Echo();
-            Killgrams();
-            Date();
-            Age();
-            Guess();
+            CarLot Scrapyard = new CarLot("Scrapyard", new List<Vehicle>());
+            CarLot Discountwheels = new CarLot("Discount Wheels", new List<Vehicle>());
+            Car RedOne = new Car("aos4848oad", "pretty", "strong", 7.00, "Toyota", 8);
+            Truck AlsoRedOne = new Truck("0iw3piubfqpibu", "tough", "weak", 9.00, "Queen");
+            Scrapyard.AddVehicle(RedOne);
+            Discountwheels.AddVehicle(AlsoRedOne);
+            Scrapyard.PrintInfo();
+            Discountwheels.PrintInfo();
         }
 
-        public static void Hello()
+        class CarLot
         {
-            Console.WriteLine("What is your name?");
-            string answer = Console.ReadLine();
-            Console.WriteLine("Goodbye" + " " + answer + "!");
-        }
-
-        public static void Addition()
-        {
-            Console.WriteLine("Enter your first number: ");
-            int FirstNumber = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Enter your second number: ");
-            int SecondNumber = Int32.Parse(Console.ReadLine());
-
-            Console.WriteLine(FirstNumber + SecondNumber);
-            
-        }
-
-        public static void Catdog()
-        {
-            Console.WriteLine("cat or dog?");
-            string answer = Console.ReadLine();
-            if (answer == "cat")
+            string NameCarLot;
+            public List<Vehicle> Vehicles = new List<Vehicle>();
+            public CarLot(string nameCart, List<Vehicle>Vehicles)
             {
-                Console.WriteLine("Meow!");
-            } 
-            else 
-            { 
-                Console.WriteLine("Bark!"); 
-            }
+                this.NameCarLot = nameCart;
+                this.Vehicles = Vehicles;
+            }            
            
-
-        }
-
-        public static void Oddevent()
-        {
-            int i;
-            Console.WriteLine("Enter your number: ");
-            i = int.Parse(Console.ReadLine());
-            if (i % 2 == 0)
+            public void AddVehicle(Vehicle autoCars)
             {
-                Console.Write("The number is even.");
+                Vehicles.Add(autoCars);
             }
-            else 
+
+            public List<Vehicle> GetVehicles()
             {
-                Console.Write("The number is odd.");
+                return Vehicles;
             }
-            
 
-        }
-
-        public static void Inches()
-        {
-            Console.WriteLine("Please input your height in feet");
-            string str_feed = Console.ReadLine();
-
-            int feet = Int32.Parse(str_feed);
-            Console.WriteLine(feet * 12 + " inches");
-        }
-
-        public static void Echo()
-        {
-            Console.WriteLine("Please input a word.");
-            string Answer = Console.ReadLine();
-            Console.WriteLine(Answer.ToUpper());
-            Console.WriteLine(Answer.ToLower());
-            Console.WriteLine(Answer.ToLower());
-            
-        }
-
-        public static void Killgrams()
-        {
-            Console.WriteLine("Input your weight in pounds");
-            int Pounds = Int32.Parse(Console.ReadLine());
-            Console.WriteLine(Pounds / 2 + " kilograms");
-        }
-
-        // This should tell the time
-        public static void Date()
-        {
-            Console.WriteLine(DateTime.Now);
-        }
-
-        public static void Age()
-        {
-            Console.WriteLine("Input your birth year: ");
-            int BirthYear = Int32.Parse(Console.ReadLine());
-            Console.WriteLine(DateTime.Now.Year - BirthYear + " years old");
-        }
-
-        public static void Guess()
-        {
-            Console.WriteLine("Guess");
-            if (Console.ReadLine() == "chsarp")
+            public void PrintInfo()
             {
-                Console.WriteLine("CORRECT!");
+                Console.WriteLine($"{NameCarLot} has {Vehicles.Count} items for sell");
+                foreach (var vehicle in Vehicles)
+                {
+                    Console.WriteLine(vehicle.AutoInfo());
+                }
             }
-            else
+        }
+
+        public abstract class Vehicle
+        {
+            public string License { get; set; }
+            public string Make { get; set; }
+            public string Model { get; set; }
+            public double Price { get; set; }
+
+            public Vehicle(string license, string make, string model, double price )
             {
-                Console.WriteLine("WRONG!");
+                this.License = license;
+                this.Make = make;
+                this.Model = model;
+                this.Price = price;
+            }
+
+            public virtual string AutoInfo()
+            {
+                return $"\n Bubba, you did it wrong";
+            }
+        }
+
+        public class Car : Vehicle
+        {
+            public string Type { get; set; }
+            public int DoorNumbers { get; set; }
+
+            public Car(string license, string make, string model, double price, string type, int doorNumbers) : base (license, make, model, price)
+            {
+                this.Type = type;
+                this.DoorNumbers = doorNumbers;
+                this.License = license;
+                this.Make = make;
+                this.Model = model;
+                this.Price = price;
+
+            }
+
+            public override string AutoInfo()
+            {
+                return $"this Car has the following information {Type}, {DoorNumbers}, {License}, {Make}, {Model}, {Price}";
+            }
+        }
+
+        public class Truck : Vehicle
+        {
+            public string BedSize { get; set; }
+
+            public Truck(string license, string make, string model, double price, string bedSize) : base (license, make, model, price)
+            {
+                this.License = license;
+                this.Make = make;
+                this.Model = model;
+                this.Price = price;
+                this.BedSize = bedSize;
+            }
+
+            public override string AutoInfo()
+            {
+                return $"this Car has the following information {BedSize}, {License}, {Make}, {Model}, {Price}";
             }
         }
     }
-
-        
 }
