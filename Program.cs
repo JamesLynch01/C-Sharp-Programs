@@ -1,111 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CarLot
+namespace Irentstuff
 {
     class Program
     {
         static void Main(string[] args)
         {
-            CarLot Scrapyard = new CarLot("Scrapyard", new List<Vehicle>());
-            CarLot Discountwheels = new CarLot("Discount Wheels", new List<Vehicle>());
-            Car RedOne = new Car("aos4848oad", "pretty", "strong", 7.00, "Toyota", 8);
-            Truck AlsoRedOne = new Truck("0iw3piubfqpibu", "tough", "weak", 9.00, "Queen");
-            Scrapyard.AddVehicle(RedOne);
-            Discountwheels.AddVehicle(AlsoRedOne);
-            Scrapyard.PrintInfo();
-            Discountwheels.PrintInfo();
-        }
+            List<IRentable> rentals = new List<IRentable>();
+            rentals.Add(new boat(60));
+            rentals.Add(new boat(700));
+            rentals.Add(new car(7));
+            rentals.Add(new car(800));
+            rentals.Add(new house(90000));
+            rentals.Add(new house(900));
 
-        class CarLot
-        {
-            string NameCarLot;
-            public List<Vehicle> Vehicles = new List<Vehicle>();
-            public CarLot(string nameCart, List<Vehicle>Vehicles)
+            foreach(var items in rentals)
             {
-                this.NameCarLot = nameCart;
-                this.Vehicles = Vehicles;
-            }            
-           
-            public void AddVehicle(Vehicle autoCars)
-            {
-                Vehicles.Add(autoCars);
-            }
-
-            public List<Vehicle> GetVehicles()
-            {
-                return Vehicles;
-            }
-
-            public void PrintInfo()
-            {
-                Console.WriteLine($"{NameCarLot} has {Vehicles.Count} items for sell");
-                foreach (var vehicle in Vehicles)
-                {
-                    Console.WriteLine(vehicle.AutoInfo());
-                }
+                Console.WriteLine(items.GetDescription() +" " + items.GetDailyRate());
             }
         }
 
-        public abstract class Vehicle
+        public interface IRentable
         {
-            public string License { get; set; }
-            public string Make { get; set; }
-            public string Model { get; set; }
-            public double Price { get; set; }
+            public decimal GetDailyRate();
 
-            public Vehicle(string license, string make, string model, double price )
+            public string GetDescription();
+        }
+
+        public class boat : IRentable
+        {
+            decimal HourlyRate;
+
+            public boat(decimal hourlyRate)
             {
-                this.License = license;
-                this.Make = make;
-                this.Model = model;
-                this.Price = price;
+                this.HourlyRate = hourlyRate;
+
             }
 
-            public virtual string AutoInfo()
+            public decimal GetDailyRate()
             {
-                return $"\n Bubba, you did it wrong";
+                return HourlyRate * 24;
+            }
+
+            public string GetDescription()
+            {
+                return "Boat will sink in a hour, but please don't barter down my ridulous price down.";
             }
         }
 
-        public class Car : Vehicle
+        class car : IRentable
         {
-            public string Type { get; set; }
-            public int DoorNumbers { get; set; }
+            decimal DailyRate;
 
-            public Car(string license, string make, string model, double price, string type, int doorNumbers) : base (license, make, model, price)
+            public car(decimal dailyRate)
             {
-                this.Type = type;
-                this.DoorNumbers = doorNumbers;
-                this.License = license;
-                this.Make = make;
-                this.Model = model;
-                this.Price = price;
-
+                this.DailyRate = dailyRate;
             }
 
-            public override string AutoInfo()
+            public decimal GetDailyRate()
             {
-                return $"this Car has the following information {Type}, {DoorNumbers}, {License}, {Make}, {Model}, {Price}";
+                return DailyRate;
             }
+
+            public string GetDescription()
+            {
+                return "car is really crappy.";
+            }
+
         }
 
-        public class Truck : Vehicle
+        class house : IRentable
         {
-            public string BedSize { get; set; }
+            decimal WeeklyRate;
 
-            public Truck(string license, string make, string model, double price, string bedSize) : base (license, make, model, price)
+            public house (decimal weeklyRate)
             {
-                this.License = license;
-                this.Make = make;
-                this.Model = model;
-                this.Price = price;
-                this.BedSize = bedSize;
+                this.WeeklyRate = weeklyRate;
             }
 
-            public override string AutoInfo()
+            public decimal GetDailyRate()
             {
-                return $"this Car has the following information {BedSize}, {License}, {Make}, {Model}, {Price}";
+                return WeeklyRate / 7;
+            }
+
+            public string GetDescription()
+            {
+                return "this house is haunted and you will likely be scaried, until the Winchester arrive";
             }
         }
     }
